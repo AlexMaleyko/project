@@ -18,6 +18,7 @@ import java.util.List;
  * Created by Alexey on 21.03.2017.
  */
 public class EntityModelConverter {
+
     public PhoneNumberDTO convertEntityToModel(PhoneNumber entity){
         PhoneNumberDTO model=new PhoneNumberDTO();
         model.setNumberId(entity.getNumberId());
@@ -28,6 +29,7 @@ public class EntityModelConverter {
         model.setComment(entity.getComment());
         return model;
     }
+
     public AttachmentDTO convertEntityToModel(Attachment entity){
         AttachmentDTO model=new AttachmentDTO();
         model.setAttachmentId(entity.getAttachmentId());
@@ -37,6 +39,7 @@ public class EntityModelConverter {
         model.setComment(entity.getComment());
         return model;
     }
+
     public ContactDTO convertEntityToModel(Contact entity){
         ContactDTO model=new ContactDTO();
         model.setContactId(entity.getContactId());
@@ -58,14 +61,17 @@ public class EntityModelConverter {
         /*Setting phoneNumberDTOList*/
         List<PhoneNumberDTO> numberDTOList=new ArrayList<>();
         List<PhoneNumber> numberEntityList=null;
+
         try {
             numberEntityList= (new PhoneNumberDAOImpl()).findByContactId(
                     ConnectionClass.getConnection(),entity.getContactId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(PhoneNumber number:numberEntityList)
+
+        for(PhoneNumber number:numberEntityList) {
             numberDTOList.add(convertEntityToModel(number));
+        }
         model.setNumberDTOList(numberDTOList);
         /*Setting attachmentDTOList*/
         List<AttachmentDTO> attachmentDTOList=new ArrayList<>();
@@ -76,8 +82,9 @@ public class EntityModelConverter {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(Attachment attachment: attachmentEntityList)
+        for(Attachment attachment: attachmentEntityList) {
             attachmentDTOList.add(convertEntityToModel(attachment));
+        }
         model.setAttachmentDTOList(attachmentDTOList);
         return model;
     }

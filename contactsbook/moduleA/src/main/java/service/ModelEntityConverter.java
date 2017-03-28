@@ -11,7 +11,8 @@ import model.PhoneNumberDTO;
  * Created by Alexey on 21.03.2017.
  */
 public class ModelEntityConverter {
-    public PhoneNumber convertModelToEntity(PhoneNumberDTO model,int contactId){
+
+    public PhoneNumber convertModelToEntity(PhoneNumberDTO model,long contactId){
         PhoneNumber entity=new PhoneNumber();
         entity.setNumberId(model.getNumberId());
         entity.setCountryCode(model.getCountryCode());
@@ -22,7 +23,8 @@ public class ModelEntityConverter {
         entity.setContactId(contactId);
         return entity;
     }
-    public Attachment convertModelToEntity(AttachmentDTO model,int contactId){
+
+    public Attachment convertModelToEntity(AttachmentDTO model,long contactId){
         Attachment entity=new Attachment();
         entity.setAttachmentId(model.getAttachmentId());
         entity.setFilePath(model.getFilePath());
@@ -32,6 +34,7 @@ public class ModelEntityConverter {
         entity.setContactId(contactId);
         return entity;
     }
+
     public Contact convertModelToEntity(ContactDTO model){
         Contact entity = new Contact(model.getName(),model.getSurname());
         entity.setContactId(model.getContactId());

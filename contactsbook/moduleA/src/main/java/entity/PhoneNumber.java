@@ -4,19 +4,19 @@ package entity;
  * Created by Alexey on 15.03.2017.
  */
 public class PhoneNumber {
-    private int numberId;
+    private long numberId;
     private String countryCode;
     private String operatorCode;
     private String number;
     private String type;
     private String comment;
-    private int contactId;
+    private long contactId;
 
-    public int getNumberId() {
+    public long getNumberId() {
         return numberId;
     }
 
-    public void setNumberId(int numberId) {
+    public void setNumberId(long numberId) {
         this.numberId = numberId;
     }
 
@@ -60,9 +60,9 @@ public class PhoneNumber {
         this.comment = comment;
     }
 
-    public int getContactId() { return contactId; }
+    public long getContactId() { return contactId; }
 
-    public void setContactId(int contactId) { this.contactId = contactId;}
+    public void setContactId(long contactId) { this.contactId = contactId;}
 
     @Override
     public String toString() {

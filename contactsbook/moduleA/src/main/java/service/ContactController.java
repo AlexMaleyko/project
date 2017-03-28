@@ -12,6 +12,7 @@ import java.util.List;
  * Created by Alexey on 21.03.2017.
  */
 public class ContactController {
+
     public List<ContactDTO> getAllContactDTO() {
         List<ContactDTO> contactDTOList = new ArrayList<>();
         List<Contact> contactList = null;
@@ -25,6 +26,7 @@ public class ContactController {
             contactDTOList.add(converter.convertEntityToModel(contact));
         return contactDTOList;
     }
+
     public void updateContact(ContactDTO contactDTO){
         Contact contact=(new ModelEntityConverter()).convertModelToEntity(contactDTO);
         try {
@@ -33,6 +35,7 @@ public class ContactController {
             e.printStackTrace();
         }
     }
+
     public void deleteContact(ContactDTO contactDTO){
         Contact contact=(new ModelEntityConverter()).convertModelToEntity(contactDTO);
         try {
@@ -41,6 +44,7 @@ public class ContactController {
             e.printStackTrace();
         }
     }
+
     public void saveContact(ContactDTO contactDTO){
         Contact contact=(new ModelEntityConverter()).convertModelToEntity(contactDTO);
         try {

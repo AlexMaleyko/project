@@ -6,18 +6,18 @@ import java.sql.Timestamp;
  * Created by Alexey on 15.03.2017.
  */
 public class Attachment {
-    private int attachmentId;
+    private long attachmentId;
     private String filePath;
     private String fileName;
     private Timestamp uploadDate;
     private String comment;
-    private int contactId;
+    private long contactId;
 
-    public int getAttachmentId() {
+    public long getAttachmentId() {
         return attachmentId;
     }
 
-    public void setAttachmentId(int attachmentId) {
+    public void setAttachmentId(long attachmentId) {
         this.attachmentId = attachmentId;
     }
 
@@ -53,11 +53,11 @@ public class Attachment {
         this.comment = comment;
     }
 
-    public int getContactId() {
+    public long getContactId() {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(long contactId) {
         this.contactId = contactId;
     }
 

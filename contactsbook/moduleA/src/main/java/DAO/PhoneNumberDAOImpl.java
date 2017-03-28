@@ -19,7 +19,7 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
         String saveString="INSERT into contact_book.phone_number "+
                           "(country_code, operator_code,number,type,comment,contact_id) "+
                           "VALUES (?,?,?,?,?,?)";
-        //java.sql.PreparedStatement saveStatement=null;
+
         try(
                 java.sql.PreparedStatement saveStatement=
                     conn.prepareStatement(saveString)
@@ -29,22 +29,24 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
            saveStatement.setString(3,phoneNumber.getNumber());
            saveStatement.setString(4,phoneNumber.getType());
            saveStatement.setString(5,phoneNumber.getComment());
-           saveStatement.setInt(6,phoneNumber.getContactId());
+           saveStatement.setLong(6,phoneNumber.getContactId());
            saveStatement.executeUpdate();
         }
 
     }
 
     @Override
-    public List<PhoneNumber> findByContactId(Connection conn, int contact_id) throws SQLException {
+    public List<PhoneNumber> findByContactId(Connection conn, long contact_id) throws SQLException {
         List<PhoneNumber> numberList=new ArrayList<>();
         String query= "SELECT number_id,country_code,operator_code,number,type,comment "+
-                      "FROM phone_number WHERE contact_id= ?";
+                      "FROM phone_number WHERE contact_id= ? AND deletion_date IS NULL";
+
         try(
                 PreparedStatement stmt=conn.prepareStatement(query)
             ){
-            stmt.setInt(1,contact_id);
+            stmt.setLong(1,contact_id);
             ResultSet rs=stmt.executeQuery();
+
             while(rs.next()){
                 PhoneNumber number=new PhoneNumber();
                 number.setNumberId(rs.getInt(1));
@@ -57,18 +59,21 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
                 numberList.add(number);
             }
         }
+
         return numberList;
     }
 
     @Override
     public List<PhoneNumber> getAll(Connection conn) throws  SQLException{
         List<PhoneNumber> numberList=new ArrayList<>();
-        String query= "SELECT number_id,country_code,operator_code,"+
-                      "number,type,comment, contact_id FROM phone_number";
+        String query= "SELECT number_id, country_code, operator_code,"+
+                      "number, type, comment, contact_id FROM phone_number WHERE deletion_date IS NULL";
+
         try(
                 PreparedStatement stmt=conn.prepareStatement(query)
         ){
             ResultSet rs=stmt.executeQuery();
+
             while(rs.next()){
                 PhoneNumber number=new PhoneNumber();
                 number.setNumberId(rs.getInt(1));
@@ -81,34 +86,37 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
                 numberList.add(number);
             }
         }
+
         return numberList;
     }
 
     @Override
     public void update(Connection conn, PhoneNumber phoneNumber) throws SQLException{
         String updateString="UPDATE phone_number "+
-                            "SET country_code=?, operator_code=?,number=?,type=?,comment=? "+
+                            "SET country_code=?, operator_code=?, number=?, type=?, comment=? "+
                             "WHERE number_id=?";
+
         try(
                 PreparedStatement stmt=conn.prepareStatement(updateString)
         ){
-            stmt.setString(1,phoneNumber.getCountryCode());
-            stmt.setString(2,phoneNumber.getOperatorCode());
-            stmt.setString(3,phoneNumber.getNumber());
-            stmt.setString(4,phoneNumber.getType());
-            stmt.setString(5,phoneNumber.getComment());
-            stmt.setInt(6,phoneNumber.getNumberId());
+            stmt.setString(1, phoneNumber.getCountryCode());
+            stmt.setString(2, phoneNumber.getOperatorCode());
+            stmt.setString(3, phoneNumber.getNumber());
+            stmt.setString(4, phoneNumber.getType());
+            stmt.setString(5, phoneNumber.getComment());
+            stmt.setLong(6, phoneNumber.getNumberId());
             stmt.executeUpdate();
         }
     }
 
     @Override
     public void delete(Connection conn, PhoneNumber phoneNumber) throws  SQLException{
-        String deleteString="DELETE FROM phone_number WHERE number_id=?";
+        String deleteString="UPDATE phone_number SET deletion_date=CURRENT_TIMESTAMP WHERE number_id= ?";
+
         try(
                 PreparedStatement stmt=conn.prepareStatement(deleteString)
         ){
-            stmt.setInt(1,phoneNumber.getNumberId());
+            stmt.setLong(1, phoneNumber.getNumberId());
             stmt.executeUpdate();
         }
     }

@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Contact {
-    private int contactId;
+    private long contactId;
     private String name;
     private String surname;
     private String patronymic;
@@ -24,7 +24,7 @@ public class Contact {
     private String postalCode;
     private String profilePictureName;
 
-    public Contact(int contactId, String name, String surname,
+    public Contact(long contactId, String name, String surname,
                    String patronymic, Date birth, String gender,
                    String citizenship, String maritalStatus, String website,
                    String email, String job, String country, String city,
@@ -52,10 +52,10 @@ public class Contact {
         this.name=name;
         this.surname=surname;
     }
-    public int getContactId() {
+    public long getContactId() {
         return contactId;
     }
-    public void setContactId(int contactId){
+    public void setContactId(long contactId){
         this.contactId=contactId;
     }
 

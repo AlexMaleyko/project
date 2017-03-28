@@ -6,17 +6,15 @@ import java.sql.Timestamp;
  * Created by Alexey on 21.03.2017.
  */
 public class AttachmentDTO {
-    private int attachmentId;
+    private long attachmentId;
     private String filePath;
     private String fileName;
     private Timestamp uploadDate;
     private String comment;
 
-    public int getAttachmentId() {
-        return attachmentId;
-    }
+    public long getAttachmentId() { return attachmentId; }
 
-    public void setAttachmentId(int attachmentId) {
+    public void setAttachmentId(long attachmentId) {
         this.attachmentId = attachmentId;
     }
 

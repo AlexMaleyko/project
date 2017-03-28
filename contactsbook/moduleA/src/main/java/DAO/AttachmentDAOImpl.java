@@ -16,29 +16,32 @@ public class AttachmentDAOImpl implements AttachmentDAO {
 
     @Override
     public void save(Connection conn, Attachment attachment) throws SQLException {
-        String saveStatement ="INSERT INTO attachment (file_path,file_name,comment,contact_id)"+
+        String saveStatement ="INSERT INTO attachment (file_path, file_name, comment, contact_id)"+
                               "VALUES (?, ?, ?, ?)";
+
         try(
                 PreparedStatement stmt = conn.prepareStatement(saveStatement)
         ){
             stmt.setString(1, attachment.getFilePath());
-            stmt.setString(2,attachment.getFileName());
-            stmt.setString(3,attachment.getComment());
-            stmt.setInt(4,attachment.getContactId());
+            stmt.setString(2, attachment.getFileName());
+            stmt.setString(3, attachment.getComment());
+            stmt.setLong(4, attachment.getContactId());
             stmt.executeUpdate();
         }
     }
 
     @Override
-    public List<Attachment> findByContactId(Connection conn, int contactId) throws SQLException {
+    public List<Attachment> findByContactId(Connection conn, long contactId) throws SQLException {
         List<Attachment> attachmentList=new ArrayList<>();
         String query = "SELECT attachment_id, file_path, file_name, upload_date, comment "+
-                       "FROM attachment WHERE contact_id= ?";
+                       "FROM attachment WHERE contact_id= ? AND deletion_date IS NULL";
+
         try(
                 PreparedStatement stmt=conn.prepareStatement(query)
         ){
-            stmt.setInt(1,contactId);
+            stmt.setLong(1,contactId);
             ResultSet rs = stmt.executeQuery();
+
             while(rs.next()){
                 Attachment attachment = new Attachment();
                 attachment.setAttachmentId(rs.getInt(1));
@@ -50,17 +53,18 @@ public class AttachmentDAOImpl implements AttachmentDAO {
                 attachmentList.add(attachment);
             }
         }
+
         return attachmentList;
 
     }
 
     @Override//добавить действия по удалению из файловой системы
     public void delete(Connection conn, Attachment attachment) throws SQLException {
-        String deleteString = "DELETE FROM attachment WHERE attachment_id=?";
+        String deleteString = "UPDATE attachment SET deletion_date=CURRENT_TIMESTAMP WHERE attachment_id=?";
         try(
                 PreparedStatement stmt = conn.prepareStatement(deleteString)
         ){
-            stmt.setInt(1,attachment.getAttachmentId());
+            stmt.setLong(1, attachment.getAttachmentId());
             stmt.executeUpdate();
         }
 

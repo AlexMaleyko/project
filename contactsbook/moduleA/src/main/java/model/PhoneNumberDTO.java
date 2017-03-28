@@ -4,18 +4,18 @@ package model;
  * Created by Alexey on 21.03.2017.
  */
 public class PhoneNumberDTO {
-    private int numberId;
+    private long numberId;
     private String countryCode;
     private String operatorCode;
     private String number;
     private String type;
     private String comment;
 
-    public int getNumberId() {
+    public long getNumberId() {
         return numberId;
     }
 
-    public void setNumberId(int numberId) {
+    public void setNumberId(long numberId) {
         this.numberId = numberId;
     }
 

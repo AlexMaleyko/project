@@ -1,0 +1,16 @@
+<web-app>
+    <display-name>Contacts book application</display-name>
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <display-name>FrontController</display-name>
+        <servlet-class>
+            FrontController
+        </servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/FrontController</url-pattern>
+    </servlet-mapping>
+</web-app>

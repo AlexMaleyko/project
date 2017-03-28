@@ -11,8 +11,12 @@ import java.util.List;
  */
 public interface PhoneNumberDAO {
     void save(Connection conn, PhoneNumber phoneNumber) throws SQLException;
-    List<PhoneNumber> findByContactId(Connection conn, int contact_id) throws SQLException;
+
+    List<PhoneNumber> findByContactId(Connection conn, long contact_id) throws SQLException;
+
     List<PhoneNumber> getAll (Connection conn) throws SQLException;
+
     void update(Connection conn,PhoneNumber phoneNumber) throws SQLException;
+
     void delete(Connection conn,PhoneNumber phoneNumber) throws SQLException;
 }

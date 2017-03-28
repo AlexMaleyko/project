@@ -11,8 +11,12 @@ import java.util.List;
  */
 public interface ContactDAO {
     List<Contact> getAll(Connection conn) throws SQLException;
-    Contact findById(Connection conn, int id) throws SQLException;
+
+    Contact findById(Connection conn, long id) throws SQLException;
+
     void save(Connection conn, Contact contact) throws SQLException;
+
     void delete(Connection conn, Contact contact) throws SQLException;
+
     void update(Connection conn, Contact contact) throws SQLException;
 }

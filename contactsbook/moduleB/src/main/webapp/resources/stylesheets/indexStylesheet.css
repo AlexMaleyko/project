@@ -1,0 +1,59 @@
+html, body{
+    font-size: 14px;
+    height: 100%;
+}
+section{
+    background-color: white;
+    margin: auto;
+    width: 80%;
+}
+/*table, th, td{
+    border: 1px solid black;
+
+}*/
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+tr:nth-child(even) {background-color: #f2f2f2}
+th,td{
+    border-bottom: 1px solid black;
+    padding: 10px;
+}
+th{
+    background-color: green;
+    color: white;
+    text-align: left;
+}
+div{
+    margin-bottom: 1em;
+    overflow: auto;
+    text-align:center;
+}
+div input[type='submit']{
+    background-color: whitesmoke;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    padding: 10px;
+    float:left;
+    margin-left: 1px;
+    /*float: left для отсутствия пробелов между кнопками*/
+}
+div input[type='submit']:hover{
+    color: white;
+    background-color: gold;
+}
+div input[type='submit']:active {
+    background-color: darkgoldenrod;
+}
+input[type='submit']:disabled{
+    cursor: not-allowed;
+}
+input[type='text']{
+
+    float: right;
+    vertical-align: middle;
+    margin-top: 1em;
+}

@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Alexey on 21.03.2017.
  */
 public class ContactDTO {
-    private int contactId;
+    private long contactId;
     private String name;
     private String surname;
     private String patronymic;
@@ -42,11 +42,11 @@ public class ContactDTO {
         this.attachmentDTOList = attachmentDTOList;
     }
 
-    public int getContactId() {
+    public long getContactId() {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(long contactId) {
         this.contactId = contactId;
     }
 

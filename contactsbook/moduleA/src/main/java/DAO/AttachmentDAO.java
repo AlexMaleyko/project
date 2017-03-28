@@ -11,7 +11,9 @@ import java.util.List;
  */
 public interface AttachmentDAO {
     void save(Connection conn, Attachment attachment) throws SQLException;
-    List<Attachment> findByContactId(Connection conn, int contactId) throws SQLException;
+
+    List<Attachment> findByContactId(Connection conn, long contactId) throws SQLException;
+
     void delete(Connection conn, Attachment attachment) throws SQLException;
 
 }
