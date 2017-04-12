@@ -36,6 +36,7 @@ public class SearchContacts implements Command {
     }
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        LOGGER.info("method: execute");
 
         List<ContactDTO> contactDTOList = null;
         PairResultSize pair = null;
@@ -44,7 +45,6 @@ public class SearchContacts implements Command {
             Map<String, String[]> parameterMap = request.getParameterMap();
             Set<String> keySet = request.getParameterMap().keySet();
             for (String s : keySet) {
-                LOGGER.info("{}", s + "    " + parameterMap.get(s).length + "     " + parameterMap.get(s)[0]);
             }
             List<String> filledParamNames = new ArrayList<>();
 
@@ -79,7 +79,6 @@ public class SearchContacts implements Command {
             }
             Map<String, Object> fieldValue = new HashMap<>();
             for (String s : filledParamNames) {
-                LOGGER.info("{}", parameterMap.get(s)[0]);
                 fieldValue.put(s, (parameterMap.get(s)[0]).trim());//mysql doesn't ignore whitespaces in beginning of the string
             }
             if (date != null) {
@@ -136,7 +135,6 @@ public class SearchContacts implements Command {
         request.setAttribute("paginationFormAction", "Search");
 
         contactDTOList = (List< ContactDTO>)session.getAttribute("contacts");
-        LOGGER.info("contactDTOList: {}", contactDTOList);
         List<ContactDTO> displayedResult = new ArrayList<>();
         for(int i = skipTotal; i < skipTotal + clientLimit; i++){
             if(i == contactDTOList.size()){
@@ -144,7 +142,6 @@ public class SearchContacts implements Command {
             }
             displayedResult.add(contactDTOList.get(i));
         }
-        LOGGER.info("skip: {}, limit {}, size {}, displayedResult {}", skipTotal, clientLimit, numberOfContacts, displayedResult.toString());
         request.setAttribute("contacts",displayedResult);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);

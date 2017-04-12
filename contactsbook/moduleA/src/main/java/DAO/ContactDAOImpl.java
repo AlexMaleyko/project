@@ -26,19 +26,19 @@ public class ContactDAOImpl implements ContactDAO {
 
     private Map<String, String> sqlStrings = new HashMap<>();
     {
-        sqlStrings.put("fname", " name = ? ");
-        sqlStrings.put("lname"," surname = ? ");
-        sqlStrings.put("patronymic"," patronymic = ? ");
-        sqlStrings.put("gender", " gender = ?");
-        sqlStrings.put("citizenship", " citizenship = ? ");
-        sqlStrings.put("status", " marital_status = ? ");
-        sqlStrings.put("email", " email = ? ");
-        sqlStrings.put("web", " web = ? ");
-        sqlStrings.put("job", " job = ? ");
-        sqlStrings.put("country", " country = ? ");
-        sqlStrings.put("city", " city = ? ");
-        sqlStrings.put("street", " street = ? " );
-        sqlStrings.put("postalCode", " postal_code = ? ");
+        sqlStrings.put("fname", " name LIKE ? ");
+        sqlStrings.put("lname"," surname LIKE ? ");
+        sqlStrings.put("patronymic"," patronymic LIKE ? ");
+        sqlStrings.put("gender", " gender LIKE ? ");
+        sqlStrings.put("citizenship", " citizenship LIKE ? ");
+        sqlStrings.put("status", " marital_status LIKE ? ");
+        sqlStrings.put("email", " email LIKE ? ");
+        sqlStrings.put("web", " web LIKE ? ");
+        sqlStrings.put("job", " job LIKE ? ");
+        sqlStrings.put("country", " country LIKE ? ");
+        sqlStrings.put("city", " city LIKE ? ");
+        sqlStrings.put("street", " street LIKE ? " );
+        sqlStrings.put("postalCode", " postal_code LIKE ? ");
     }
 
     private static final org.slf4j.Logger LOGGER=
@@ -352,8 +352,8 @@ public class ContactDAOImpl implements ContactDAO {
                         stmt.setDate(i, (java.sql.Date) preparedParameters.get(i));
                         rsSize.setDate(i, (java.sql.Date) preparedParameters.get(i));
                     } else {
-                        stmt.setString(i, (String) preparedParameters.get(i));
-                        rsSize.setString(i, (String) preparedParameters.get(i));
+                        stmt.setString(i, "%" + (String) preparedParameters.get(i) + "%");
+                        rsSize.setString(i, "%" + (String) preparedParameters.get(i) + "%");
                     }
                 }
                 ResultSet rs = stmt.executeQuery();

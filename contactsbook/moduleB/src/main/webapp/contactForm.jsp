@@ -125,7 +125,7 @@
                 <c:forEach items="${contact.numberDTOList}" var="phone">
                     <tr>
                         <td><input type="checkbox" name="checkBoxGroup" onchange="manageUpdateButton(this)" value="${phone.numberId}"/></td>
-                        <td><span>${phone.countryCode}(${phone.operatorCode})${phone.number}</span>
+                        <td><span>${phone.countryCode}${phone.operatorCode}${phone.number}</span>
                             <input type="hidden" name="countryCode" class="countryCode" value="${phone.countryCode}"/>
                             <input type="hidden" name="operatorCode" class="operatorCode" value="${phone.operatorCode}"/>
                             <input type="hidden" name="number" class="number" value="${phone.number}"/>

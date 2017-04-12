@@ -99,8 +99,16 @@ function updatePhoneRecord(){
         alert("Вы не ввели номер телефона");
         return;
     }
-    if(number.value.match(/[0-9]+/)){
+    if(!number.value.match(/^[0-9]*$/)){
         alert("Номер телефона должен состоять только из цифр");
+        return;
+    }
+    if(!document.getElementById('mdlCountryCode').value.match(/^\+?\d*\s*$/)){
+        alert("Код страны может состоять только из цифр и знака +.");
+        return;
+    }
+    if(!document.getElementById('mdlOperatorCode').value.match(/^\s*\d*\s*$/)){
+        alert("Код оператора может состоять только из цифр");
         return;
     }
     var phoneTable = document.getElementById("phoneTable");
@@ -120,7 +128,7 @@ function updatePhoneRecord(){
                     var v3 = document.getElementById('mdlNumber').value;
                     tr[i].getElementsByClassName('number')[0].value = v3;
 
-                    td[1].getElementsByTagName('span')[0].innerHTML = v1 + "(" + v2 + ")" + v3;
+                    td[1].getElementsByTagName('span')[0].innerHTML = v1 + v2 + v3;
 
                     var v4 = document.getElementById('mdlPhoneComment').value;
                     tr[i].getElementsByClassName('phoneComment')[0].value = v4;
@@ -181,8 +189,16 @@ function newPhoneRecord(){
         alert("Вы не ввели номер телефона");
         return;
     }
-    if(!number.value.match(/[0-9]+/)){
+    if(!number.value.match(/^[0-9]*$/)){
         alert("Номер телефона должен состоять только из цифр");
+        return;
+    }
+    if(!document.getElementById('mdlCountryCode').value.match(/^\+?\d*\s*$/)){
+        alert("Код страны может состоять только из цифр и знака +.");
+        return;
+    }
+    if(!document.getElementById('mdlOperatorCode').value.match(/^\s*\d*\s*$/)){
+        alert("Код оператора может состоять только из цифр");
         return;
     }
     var phoneTable = document.getElementById("phoneTable");
@@ -425,6 +441,7 @@ function callEmailForm(){
         inputs[i].value = '';
     }
     textarea.value = '';
+    document.getElementById('pattern').value = '';
     while(mailBoxList.firstChild){
         mailBoxList.removeChild(mailBoxList.firstChild);
     }

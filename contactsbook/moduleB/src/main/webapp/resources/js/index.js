@@ -62,6 +62,13 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('pattern').addEventListener('change', function(){
         var select = document.getElementById('pattern');
         document.getElementById('mailText').value = select.options[select.selectedIndex].value;
+        document.getElementById('hiddenPattern').value = select.options[select.selectedIndex].getAttribute('name');
+        if(select.options[select.selectedIndex].getAttribute('name') != ""){
+            document.getElementById('mailText').disabled = true;
+        }
+        else{
+            document.getElementById('mailText').disabled = false;
+        }
     });
 });
 function newPage (event) {

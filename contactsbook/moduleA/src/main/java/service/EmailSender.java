@@ -53,25 +53,26 @@ public class EmailSender {
         }
 
         try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(properties.getProperty("username")));
+            MimeMessage message = null;
             for(ContactDTO contactDTO : contactDTOList) {
                 if(!StringUtils.isNotBlank(contactDTO.getEmail())){
                     LOGGER.error("email field is empty");
-                    throw new RuntimeException("The recipient " + contactDTO.getName() +
+                    throw new RuntimeException("Email field for the recipient " + contactDTO.getName() +
                             " " +  contactDTO.getSurname() + " " + contactDTO.getPatronymic() +
-                    " doesn't has the email field filled");
+                    " hasn't been provided");
                 }
-                message.addRecipient(Message.RecipientType.BCC, new InternetAddress(contactDTO.getEmail()));
+                message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(properties.getProperty("username")));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(contactDTO.getEmail()));
+                message.setSubject(subject, "UTF-8");
+                message.setText(text, "UTF-8");
+                Transport.send(message);
             }
-            message.setSubject(subject, "UTF-8");
-            message.setText(text, "UTF-8");
-            Transport.send(message);
         } catch (AddressException e) {
             LOGGER.error("{}", e.getMessage());
         } catch (MessagingException e) {
             LOGGER.error("{}", e.getMessage());
         }
-
     }
+
 }

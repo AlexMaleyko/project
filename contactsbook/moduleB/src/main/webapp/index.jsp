@@ -151,14 +151,15 @@
                 Получатели
             <div id="mailBoxList"></div>
             <select id="pattern">
-                    <option label="choose" value="" selected>Шаблон</option>
+                    <option label="choose" value="" name="" selected>Шаблон</option>
                 <c:forEach items="${msgTmpl}" var="template">
-                    <option value="${template.template}">${template.name}</option>
+                    <option name="${template.name}" value="${template.template}">${template.name}</option>
                 </c:forEach>
             </select>
             <textarea name="mailText" id="mailText" placeholder="Сообщение"></textarea>
             <button type = "submit">Отправить</button>
             <button type="button" onclick="closeModal()">Отменить</button>
+            <input type="hidden" name="pattern" id="hiddenPattern" value=""/>
         </form>
         <footer></footer>
     </div>

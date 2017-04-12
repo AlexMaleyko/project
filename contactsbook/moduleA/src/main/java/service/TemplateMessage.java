@@ -15,18 +15,17 @@ public class TemplateMessage {
             org.slf4j.LoggerFactory.getLogger(TemplateMessage.class);
     private String name;
     private String template;
+    private ST stTemplate;
     public TemplateMessage(String name){
         STGroup messageTemplates = new STGroupFile("messageTemplates.stg");
         ST template1 = messageTemplates.getInstanceOf(name);
+        this.stTemplate = messageTemplates.getInstanceOf(name);
         if(name.equals("birthday")) {
             template1.add("name", "<Имя>");
             template1.add("patronymic", "<Отчество>");
         }
-        if(name.equals("randomOccasion")){
-            template1.add("occasion", "<Праздник>");
-        }
-        if(name.equals("greeting")){
-            template1.add("place", "<Место>");
+        if(name.equals("birthdayPlans")){
+            template1.add("age", "< N >");
         }
         this.name=name;
         this.template = template1.render();
@@ -34,8 +33,8 @@ public class TemplateMessage {
     public static List<TemplateMessage> getAllTemplates(){
         List<TemplateMessage> templateMessages = new ArrayList<>();
         templateMessages.add(new TemplateMessage("birthday"));
-        templateMessages.add(new TemplateMessage("randomOccasion"));
-        templateMessages.add(new TemplateMessage("greeting"));
+        templateMessages.add(new TemplateMessage("birthdayPlans"));
+        templateMessages.add(new TemplateMessage("meeting"));
         return templateMessages;
     }
 
@@ -53,5 +52,13 @@ public class TemplateMessage {
 
     public void setTemplate(String template) {
         this.template = template;
+    }
+
+    public ST getStTemplate() {
+        return stTemplate;
+    }
+
+    public void setStTemplate(ST stTemplate) {
+        this.stTemplate = stTemplate;
     }
 }
