@@ -4,20 +4,118 @@ import DAO.PhoneNumberDAOImpl;
 import entity.Attachment;
 import entity.Contact;
 import entity.PhoneNumber;
+import org.apache.commons.io.FileUtils;
+import org.joda.time.LocalDate;
+import org.quartz.*;
+import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.stringtemplate.v4.ST;
+import org.stringtemplate.v4.STGroup;
+import org.stringtemplate.v4.STGroupFile;
+import service.BirthdayMailJob;
 import service.ConnectionClass;
+import service.ContactController;
+import service.TemplateMessage;
 
+
+import javax.mail.*;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Properties;
 import java.util.Scanner;
 
 /**
  * Created by Alexey on 17.03.2017.
  */
 public class Main {
-    public static void main(String[] args) throws SQLException{
-        System.out.println("hello");
-        PhoneNumber phoneNumber=new PhoneNumber();
+
+
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
+    public static void main(String[] args) throws SQLException, IOException, SchedulerException {
+        /*Properties properties = new Properties();
+        String propFileName = "email.properties";
+        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream(propFileName);
+        properties.load(inputStream);*/
+         Properties properties;
+         String propFileName = "fileStorage.properties";
+        properties = new Properties();
+        InputStream inputStream = Main.class.getClassLoader().getResourceAsStream(propFileName);
+        properties.load(inputStream);
+        System.out.println(properties.getProperty("defaultPicturePath"));
+
+        /*JobDetail job = JobBuilder.newJob(BirthdayMailJob.class)
+                .withIdentity("birthdayJob", "contactsbook").build();
+
+        Trigger trigger = TriggerBuilder
+                .newTrigger()
+                .withIdentity("BirthdayTrigger", "contactsbook")
+                .withSchedule(
+                        SimpleScheduleBuilder.simpleSchedule()
+                                .withIntervalInSeconds(5).repeatForever())
+                .build();
+
+        Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
+        scheduler.start();
+        scheduler.scheduleJob(job, trigger);*/
+
+        STGroup messageTemplates = new STGroupFile("messageTemplates.stg");
+        ST template1 = messageTemplates.getInstanceOf("birthday");
+        template1.add("name", "Alex");
+        template1.add("patronymic", "James");
+        System.out.println(template1.render());
+
+
+
+       /* final String username = "username@gmail.com";
+        final String password = "password";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "465");
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.port", "465");
+
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(properties.getProperty("username"),
+                                properties.getProperty("password"));
+                    }
+                });
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(properties.getProperty("username")));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress("recipientr88@gmail.com"));
+            message.setSubject("hello", "UTF-8");
+            message.setText("Привет, это мое первое электронное сообщение", "UTF-8");
+            Transport.send(message);
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("hello");*/
+
+
+
+
+
+        /*PhoneNumber phoneNumber=new PhoneNumber();
         phoneNumber.setComment("Hello");
         phoneNumber.setContactId(2);
         phoneNumber.setCountryCode("+375");
@@ -87,6 +185,6 @@ public class Main {
         System.out.println("Pause");
         attachment.setAttachmentId(1);
         aoImp.delete(ConnectionClass.getConnection(),attachment);
-        System.out.println((aoImp.findByContactId(ConnectionClass.getConnection(),1)).toString());
+        System.out.println((aoImp.findByContactId(ConnectionClass.getConnection(),1)).toString());*/
     }
 }

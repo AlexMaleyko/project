@@ -19,4 +19,8 @@ public interface PhoneNumberDAO {
     void update(Connection conn,PhoneNumber phoneNumber) throws SQLException;
 
     void delete(Connection conn,PhoneNumber phoneNumber) throws SQLException;
+
+    void deleteByContactId(Connection conn, long id) throws SQLException;
+
+    void deleteById(Connection conn, long id) throws  SQLException;
 }

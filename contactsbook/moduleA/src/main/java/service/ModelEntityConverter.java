@@ -7,12 +7,20 @@ import model.AttachmentDTO;
 import model.ContactDTO;
 import model.PhoneNumberDTO;
 
+import java.sql.Date;
+
 /**
  * Created by Alexey on 21.03.2017.
  */
 public class ModelEntityConverter {
 
+    private static final org.slf4j.Logger LOGGER =
+            org.slf4j.LoggerFactory.getLogger(ModelEntityConverter.class);
+
     public PhoneNumber convertModelToEntity(PhoneNumberDTO model,long contactId){
+
+        LOGGER.info("method: convertModelToEntity({}, {})", model.getClass().getSimpleName(), contactId);
+
         PhoneNumber entity=new PhoneNumber();
         entity.setNumberId(model.getNumberId());
         entity.setCountryCode(model.getCountryCode());
@@ -25,21 +33,33 @@ public class ModelEntityConverter {
     }
 
     public Attachment convertModelToEntity(AttachmentDTO model,long contactId){
+
+        LOGGER.info("method: convertModelToEntity({}, {})",  model.getClass().getSimpleName(), contactId);
+
         Attachment entity=new Attachment();
         entity.setAttachmentId(model.getAttachmentId());
         entity.setFilePath(model.getFilePath());
         entity.setFileName(model.getFileName());
         entity.setUploadDate(model.getUploadDate());
         entity.setComment(model.getComment());
+        entity.setFile(model.getFile());
         entity.setContactId(contactId);
         return entity;
     }
 
     public Contact convertModelToEntity(ContactDTO model){
+
+        LOGGER.info("method: convertModelToEntity({})", model.getClass().getSimpleName());
+
         Contact entity = new Contact(model.getName(),model.getSurname());
         entity.setContactId(model.getContactId());
         entity.setPatronymic(model.getPatronymic());
-        entity.setBirth(model.getBirth());
+        if(model.getBirth() != null){
+            entity.setBirth(new Date(model.getBirth().toDateTimeAtStartOfDay().getMillis()));
+        }
+        else{
+            entity.setBirth(null);
+        }
         entity.setGender(model.getGender());
         entity.setCitizenship(model.getCitizenship());
         entity.setMaritalStatus(model.getMaritalStatus());
@@ -51,6 +71,7 @@ public class ModelEntityConverter {
         entity.setStreet(model.getStreet());
         entity.setPostalCode(model.getPostalCode());
         entity.setProfilePictureName(model.getProfilePictureName());
+        entity.setProfileImage(model.getProfileImage());
         return entity;
     }
 }

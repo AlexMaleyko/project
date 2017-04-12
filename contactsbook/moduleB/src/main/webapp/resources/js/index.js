@@ -1,6 +1,4 @@
-/**
- * Created by Alexey on 27.03.2017.
- */
+
 function checkAll(mainCheckbox){
     var checkboxes=document.getElementsByName("checkBoxGroup");
     for (var i=0; i<checkboxes.length;i++) {
@@ -8,9 +6,8 @@ function checkAll(mainCheckbox){
     }
 }
 
-
 var checkedBoxNumber = 0;
-function manageUpdateButton(checkBox){
+function manageUpdateDeleteButtons(checkBox){
     if(checkBox.id =="mainCheckBox" && checkBox.checked==true){
         checkedBoxNumber=document.getElementsByName("checkBoxGroup").length;
     }
@@ -23,14 +20,20 @@ function manageUpdateButton(checkBox){
         }
         else {
             checkedBoxNumber = checkedBoxNumber - 1;
-        //    document.getElementById("mainCheckBox").checked=false; SWITCHES OFF THE MAIN CHECKBOX when one of checkboxes is unchecked
+            document.getElementById("mainCheckBox").checked=false;// SWITCHES OFF THE MAIN CHECKBOX when one of checkboxes is unchecked
         }
     }
-        if (checkedBoxNumber > 1) {
+        if (checkedBoxNumber !== 1) {
             document.getElementById("updateContact").disabled = true;
         }
         else {
             document.getElementById("updateContact").disabled = false;
+        }
+        if(checkedBoxNumber==0){
+            document.getElementById("deleteContact").disabled = true;
+        }
+        else{
+            document.getElementById("deleteContact").disabled = false;
         }
 }
 
@@ -55,6 +58,60 @@ function search() {
         }
     }
 }
+document.addEventListener('DOMContentLoaded', function(){
+    document.getElementById('pattern').addEventListener('change', function(){
+        var select = document.getElementById('pattern');
+        document.getElementById('mailText').value = select.options[select.selectedIndex].value;
+    });
+});
+function newPage (event) {
+    document.getElementById('clickedPage').value
+        = event.target.name;
+    document.getElementById('paginationForm').submit();
+}
+document.addEventListener('DOMContentLoaded', function() {
+    "use strict";
+    var pageTotal = document.getElementById('pageTotal').value;
+    var currentPage = document.getElementById('currentPage').value;
+    var clientLimit = document.getElementById('clientLimit').value;
+    var pagination = document.getElementById('pagination');
+    var button;
+
+    if(pageTotal == 0){
+        pagination.innerHTML = "Вы не сохранили ни одного контакта";
+    }
+    else {
+        for (var i = 0; i < pageTotal; i++) {
+            button = document.createElement('button');
+            button.setAttribute('type', 'submit');
+            button.setAttribute('name', i);
+            if (i == currentPage) {
+                button.setAttribute('class', 'active');
+            }
+            else {
+                button.setAttribute('class', 'paginationBtn');
+            }
+            button.value = i + 1;
+            button.innerHTML = i + 1;
+            pagination.appendChild(button);
+        }
+    }
+    var paginationButtons = document.getElementsByClassName('paginationBtn');
+    for(var i = 0; i < paginationButtons.length; i++){
+        paginationButtons[i].addEventListener('click', newPage, false);
+    }
+    document.getElementById('pageNum').value = clientLimit;
+    document.getElementById('pageNum').addEventListener('change', function () {
+        document.getElementById('clientLimit').value
+            = document.getElementsByName('pageNum')[0].value;
+        document.getElementById('paginationForm').submit();
+    })
+});
+document.addEventListener('DOMContentLoaded', function(){
+    if(document.getElementById("isSearchPage").value == 1){
+        document.getElementById("backToList").style.display = "block";
+    }
+});
 /*
 function addCheckBoxListener(){
     alert("dfd");

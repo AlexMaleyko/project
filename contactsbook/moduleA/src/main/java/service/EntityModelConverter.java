@@ -9,7 +9,14 @@ import entity.PhoneNumber;
 import model.AttachmentDTO;
 import model.ContactDTO;
 import model.PhoneNumberDTO;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +26,13 @@ import java.util.List;
  */
 public class EntityModelConverter {
 
+    private static final org.slf4j.Logger LOGGER =
+            org.slf4j.LoggerFactory.getLogger(EntityModelConverter.class);
+
     public PhoneNumberDTO convertEntityToModel(PhoneNumber entity){
+
+        LOGGER.info("method: convertEntityToModel({})",entity.getClass().getSimpleName());
+
         PhoneNumberDTO model=new PhoneNumberDTO();
         model.setNumberId(entity.getNumberId());
         model.setCountryCode(entity.getCountryCode());
@@ -31,6 +44,9 @@ public class EntityModelConverter {
     }
 
     public AttachmentDTO convertEntityToModel(Attachment entity){
+
+        LOGGER.info("method: convertEntityToModel({})",entity.getClass().getSimpleName());
+
         AttachmentDTO model=new AttachmentDTO();
         model.setAttachmentId(entity.getAttachmentId());
         model.setFilePath(entity.getFilePath());
@@ -40,13 +56,21 @@ public class EntityModelConverter {
         return model;
     }
 
-    public ContactDTO convertEntityToModel(Contact entity){
+    public ContactDTO convertEntityToModel(Connection conn, Contact entity){
+
+        LOGGER.info("method: convertEntityToModel({})", entity.getClass().getSimpleName());
+
         ContactDTO model=new ContactDTO();
         model.setContactId(entity.getContactId());
         model.setName(entity.getName());
         model.setSurname(entity.getSurname());
         model.setPatronymic(entity.getPatronymic());
-        model.setBirth(entity.getBirth());
+        if(entity.getBirth() != null){
+            model.setBirth(new org.joda.time.LocalDate(entity.getBirth().getTime()));
+        }
+        else{
+            model.setBirth(null);
+        }
         model.setGender(entity.getGender());
         model.setCitizenship(entity.getCitizenship());
         model.setMaritalStatus(entity.getMaritalStatus());
@@ -64,7 +88,7 @@ public class EntityModelConverter {
 
         try {
             numberEntityList= (new PhoneNumberDAOImpl()).findByContactId(
-                    ConnectionClass.getConnection(),entity.getContactId());
+                    conn,entity.getContactId());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +102,7 @@ public class EntityModelConverter {
         List<Attachment> attachmentEntityList=null;
         try {
             attachmentEntityList=(new AttachmentDAOImpl()).findByContactId(
-                    ConnectionClass.getConnection(),entity.getContactId());
+                    conn,entity.getContactId());
         } catch (SQLException e) {
             e.printStackTrace();
         }

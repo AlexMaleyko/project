@@ -1,5 +1,7 @@
 package model;
 
+import org.apache.commons.fileupload.FileItem;
+
 import java.sql.Timestamp;
 
 /**
@@ -9,6 +11,7 @@ public class AttachmentDTO {
     private long attachmentId;
     private String filePath;
     private String fileName;
+    private FileItem file;
     private Timestamp uploadDate;
     private String comment;
 
@@ -48,5 +51,13 @@ public class AttachmentDTO {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public FileItem getFile() {
+        return file;
+    }
+
+    public void setFile(FileItem file) {
+        this.file = file;
     }
 }

@@ -1,5 +1,8 @@
 package model;
 
+import org.apache.commons.fileupload.FileItem;
+import org.joda.time.LocalDate;
+
 import java.sql.Date;
 import java.util.List;
 
@@ -11,7 +14,7 @@ public class ContactDTO {
     private String name;
     private String surname;
     private String patronymic;
-    private java.sql.Date birth;
+    private LocalDate birth;
     private String gender;
     private String citizenship;
     private String maritalStatus;
@@ -23,8 +26,11 @@ public class ContactDTO {
     private String street;
     private String postalCode;
     private String profilePictureName;
+    private FileItem profileImage;
     private List<PhoneNumberDTO> numberDTOList;
     private List<AttachmentDTO> attachmentDTOList;
+    private List<Long> phoneNumberDeleteList;
+    private List<Long> attachDeleteList;
 
     public List<PhoneNumberDTO> getNumberDTOList() {
         return numberDTOList;
@@ -74,11 +80,11 @@ public class ContactDTO {
         this.patronymic = patronymic;
     }
 
-    public Date getBirth() {
+    public LocalDate getBirth() {
         return birth;
     }
 
-    public void setBirth(Date birth) {
+    public void setBirth(LocalDate birth) {
         this.birth = birth;
     }
 
@@ -168,5 +174,29 @@ public class ContactDTO {
 
     public void setProfilePictureName(String profilePictureName) {
         this.profilePictureName = profilePictureName;
+    }
+
+    public FileItem getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(FileItem profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public List<Long> getPhoneNumberDeleteList() {
+        return phoneNumberDeleteList;
+    }
+
+    public void setPhoneNumberDeleteList(List<Long> phoneNumberDeleteList) {
+        this.phoneNumberDeleteList = phoneNumberDeleteList;
+    }
+
+    public List<Long> getAttachDeleteList() {
+        return attachDeleteList;
+    }
+
+    public void setAttachDeleteList(List<Long> attachDeleteList) {
+        this.attachDeleteList = attachDeleteList;
     }
 }

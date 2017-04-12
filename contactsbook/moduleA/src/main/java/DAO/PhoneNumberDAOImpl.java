@@ -14,11 +14,18 @@ import java.util.List;
  */
 public class PhoneNumberDAOImpl implements PhoneNumberDAO {
 
+    private static final org.slf4j.Logger LOGGER=
+            org.slf4j.LoggerFactory.getLogger(PhoneNumberDAOImpl.class);
+
     @Override
     public void save(Connection conn,PhoneNumber phoneNumber) throws SQLException {
+
+        LOGGER.info("method: save({}, {})", conn, phoneNumber.getClass().getSimpleName());
+
         String saveString="INSERT into contact_book.phone_number "+
                           "(country_code, operator_code,number,type,comment,contact_id) "+
                           "VALUES (?,?,?,?,?,?)";
+        LOGGER.info("dao comment {}", phoneNumber.getComment());
 
         try(
                 java.sql.PreparedStatement saveStatement=
@@ -36,7 +43,10 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
     }
 
     @Override
-    public List<PhoneNumber> findByContactId(Connection conn, long contact_id) throws SQLException {
+    public List<PhoneNumber> findByContactId(Connection conn, long contactId) throws SQLException {
+
+        LOGGER.info("method: findByContactId({}, {})", conn, contactId);
+
         List<PhoneNumber> numberList=new ArrayList<>();
         String query= "SELECT number_id,country_code,operator_code,number,type,comment "+
                       "FROM phone_number WHERE contact_id= ? AND deletion_date IS NULL";
@@ -44,7 +54,7 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
         try(
                 PreparedStatement stmt=conn.prepareStatement(query)
             ){
-            stmt.setLong(1,contact_id);
+            stmt.setLong(1,contactId);
             ResultSet rs=stmt.executeQuery();
 
             while(rs.next()){
@@ -55,7 +65,7 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
                 number.setNumber(rs.getString(4));
                 number.setType(rs.getString(5));
                 number.setComment(rs.getString(6));
-                number.setContactId(contact_id);
+                number.setContactId(contactId);
                 numberList.add(number);
             }
         }
@@ -65,6 +75,9 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
 
     @Override
     public List<PhoneNumber> getAll(Connection conn) throws  SQLException{
+
+        LOGGER.info("method: getAll({})", conn);
+
         List<PhoneNumber> numberList=new ArrayList<>();
         String query= "SELECT number_id, country_code, operator_code,"+
                       "number, type, comment, contact_id FROM phone_number WHERE deletion_date IS NULL";
@@ -92,6 +105,9 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
 
     @Override
     public void update(Connection conn, PhoneNumber phoneNumber) throws SQLException{
+
+        LOGGER.info("method: update({}, {})", conn, phoneNumber.getClass().getSimpleName());
+
         String updateString="UPDATE phone_number "+
                             "SET country_code=?, operator_code=?, number=?, type=?, comment=? "+
                             "WHERE number_id=?";
@@ -111,6 +127,9 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
 
     @Override
     public void delete(Connection conn, PhoneNumber phoneNumber) throws  SQLException{
+
+        LOGGER.info("method: delete({}, {})", conn, phoneNumber.getClass().getSimpleName());
+
         String deleteString="UPDATE phone_number SET deletion_date=CURRENT_TIMESTAMP WHERE number_id= ?";
 
         try(
@@ -120,4 +139,33 @@ public class PhoneNumberDAOImpl implements PhoneNumberDAO {
             stmt.executeUpdate();
         }
     }
+
+    @Override
+    public void deleteByContactId(Connection conn, long id) throws SQLException {
+
+        LOGGER.info("method: deleteByContactId({}, {})", conn, id);
+
+        String deleteString="UPDATE phone_number SET deletion_date=CURRENT_TIMESTAMP WHERE contact_id= ?";
+
+        try(
+                PreparedStatement stmt=conn.prepareStatement(deleteString)
+        ){
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
+    public void deleteById(Connection conn, long id) throws  SQLException{
+        LOGGER.info("method: deleteById({}, {})", conn, id);
+
+        String deleteString="UPDATE phone_number SET deletion_date=CURRENT_TIMESTAMP WHERE number_id= ?";
+
+        try(
+                PreparedStatement stmt=conn.prepareStatement(deleteString)
+        ){
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        }
+    }
+
 }

@@ -1,6 +1,8 @@
 package entity; /**
  * Created by Alexey on 15.03.2017.
  */
+import org.apache.commons.fileupload.FileItem;
+
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,31 +24,10 @@ public class Contact {
     private String city;
     private String street;
     private String postalCode;
+    private FileItem profileImage;
     private String profilePictureName;
 
-    public Contact(long contactId, String name, String surname,
-                   String patronymic, Date birth, String gender,
-                   String citizenship, String maritalStatus, String website,
-                   String email, String job, String country, String city,
-                   String street, String postalCode, String profilePictureName
-    ) {
-        this.contactId = contactId;
-        this.name = name;
-        this.surname = surname;
-        this.patronymic = patronymic;
-        this.birth = birth;
-        this.gender = gender;
-        this.citizenship = citizenship;
-        this.maritalStatus = maritalStatus;
-        this.website = website;
-        this.email = email;
-        this.job = job;
-        this.country = country;
-        this.city = city;
-        this.street = street;
-        this.postalCode = postalCode;
-        this.profilePictureName = profilePictureName;
-    }
+    public Contact(){}
 
     public Contact(String name, String surname){
         this.name=name;
@@ -186,6 +167,14 @@ public class Contact {
 
     public void setProfilePictureName(String profilePictureName) {
         this.profilePictureName = profilePictureName;
+    }
+
+    public FileItem getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(FileItem profileImage) {
+        this.profileImage = profileImage;
     }
 
     @Override
