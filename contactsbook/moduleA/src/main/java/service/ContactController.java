@@ -23,9 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-/**
- * Created by Alexey on 21.03.2017.
- */
+
 public class ContactController {
 
     private static final org.slf4j.Logger LOGGER=

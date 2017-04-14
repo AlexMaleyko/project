@@ -40,5 +40,8 @@
         </dependency>
 
     </dependencies>
+    <build>
+        <finalName>contact-book</finalName>
+    </build>
 
 </project>

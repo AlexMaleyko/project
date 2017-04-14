@@ -29,10 +29,12 @@ public class UpdateContact implements Command {
         request.setAttribute("contact",contactDTO);
         request.setAttribute("goal", "Просмотр/Редактирование");
         request.setAttribute("formaction", "EditContact");
-        request.setAttribute("dd", contactDTO.getBirth().getDayOfMonth());
-        request.setAttribute("mm", contactDTO.getBirth().getMonthOfYear());
-        request.setAttribute("yyyy", contactDTO.getBirth().getYear());
-        RequestDispatcher dispatcher = request.getRequestDispatcher("contactForm.jsp");
+        if(contactDTO.getBirth() != null) {
+            request.setAttribute("dd", contactDTO.getBirth().getDayOfMonth());
+            request.setAttribute("mm", contactDTO.getBirth().getMonthOfYear());
+            request.setAttribute("yyyy", contactDTO.getBirth().getYear());
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/contactForm.jsp");
         dispatcher.forward(request, response);
     }
 }

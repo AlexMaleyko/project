@@ -87,7 +87,8 @@ public class SaveContact implements Command{
             List<FileItem> formItems = upload.parseRequest(request);
             if(formItems != null && formItems.size() > 0){
                 for(FileItem item : formItems){
-                    if(!item.isFormField()){
+                    if(!item.isFormField())
+                    {
                         if(item.getFieldName().equals("profileImg")){
                             profileImage = item;
                         }
@@ -95,7 +96,8 @@ public class SaveContact implements Command{
                             files.add(item);
                         }
                     }
-                    else{
+                    else
+                    {
 
                         if(item.getFieldName().equals("fileName")){
                             attachNames.add(item.getString("UTF-8"));

@@ -39,7 +39,7 @@ public class CreateContact implements Command{
         request.setAttribute("goal", "Создание");
         request.setAttribute("formaction", "SaveContact");
         request.setAttribute("contact", contact);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("contactForm.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/contactForm.jsp");
         dispatcher.forward(request, response);
     }
 }

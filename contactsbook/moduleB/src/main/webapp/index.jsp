@@ -22,10 +22,10 @@
         <button type="submit" id="createContact" value="createContact" form="contactForm" formmethod="get" formaction="CreateContactForm">
             Создать
         </button>
-        <button type="submit" id="updateContact" value="updateContact" form="contactForm" formmethod="post" formaction="ContactForm" disabled>
+        <button type="submit" id="updateContact" value="updateContact" form="contactForm" formmethod="get" formaction="UpdateContact" disabled>
             Изменить
         </button>
-        <button type="submit" id="deleteContact" value="deleteContact" form="contactForm" formmethod="post" disabled>
+        <button type="submit" id="deleteContact" value="deleteContact" form="contactForm" formmethod="post" formaction="DeleteContact" disabled>
             Удалить
         </button>
         Показывать

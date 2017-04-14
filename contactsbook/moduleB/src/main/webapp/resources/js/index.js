@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var button;
 
     if(pageTotal == 0){
-        pagination.innerHTML = "Вы не сохранили ни одного контакта";
+        pagination.innerHTML = "Данные отсутствуют";
     }
     else {
         for (var i = 0; i < pageTotal; i++) {

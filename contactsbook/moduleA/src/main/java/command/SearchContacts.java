@@ -143,7 +143,7 @@ public class SearchContacts implements Command {
             displayedResult.add(contactDTOList.get(i));
         }
         request.setAttribute("contacts",displayedResult);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
         dispatcher.forward(request, response);
 
     }

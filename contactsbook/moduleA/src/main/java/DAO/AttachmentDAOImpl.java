@@ -118,7 +118,10 @@ public class AttachmentDAOImpl implements AttachmentDAO {
             while(rs.next()) {
                 String filePath = rs.getString(1);
                 File deleteFile = new File(filePath);
-                FileUtils.forceDelete(deleteFile);
+
+                if (deleteFile.exists()) {
+                    FileUtils.forceDelete(deleteFile);
+                }
             }
             delete.setLong(1, id);
             delete.executeUpdate();
@@ -141,7 +144,9 @@ public class AttachmentDAOImpl implements AttachmentDAO {
             rs.next();
             String filePath = rs.getString(1);
             File deleteFile = new File(filePath);
-            FileUtils.forceDelete(deleteFile);
+            if (deleteFile.exists()) {
+                FileUtils.forceDelete(deleteFile);
+            }
 
             delete.setLong(1, id);
             delete.executeUpdate();
