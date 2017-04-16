@@ -91,11 +91,11 @@ document.addEventListener('DOMContentLoaded', function(){
         }
     );
 });
+
 document.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('cnslBtn').addEventListener('click', function () {
-            document.getElementById("imgInput").value = "";
-            document.getElementById('profileImg').src = initSrc;
-            closeModal();
-        }
-    );
+    var image = document.getElementById('profileImg');
+    var downloadingImage = new Image();
+    downloadingImage.onload = function(){
+        image.src = this.src;
+    };
 });

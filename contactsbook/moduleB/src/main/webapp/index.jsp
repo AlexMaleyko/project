@@ -37,7 +37,7 @@
         <input type="text" name="search" placeholder="Search.." id="searchInput" onkeyup="search()"/>
     </div>
 
-    <form method="post" action="Delete" id="contactForm">
+    <form method="post" id="contactForm">
         <table id="contactTable">
             <thead>
             <tr>

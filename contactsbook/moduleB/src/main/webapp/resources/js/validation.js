@@ -170,7 +170,19 @@ function emailModalValidation(){
         return false;
     }
     document.getElementById('emailFormMdl').submit();
+    invokeLoader();
 }
+function invokeLoader(){
+    closeModal();
+    var divBackground = document.createElement('div');
+    var divLoader = document.createElement('div');
+    divBackground.setAttribute('class', 'loaderBack');
+    divLoader.setAttribute('class', 'loader');
+    var body = document.getElementsByTagName('body')[0];
+    divBackground.appendChild(divLoader);
+    body.appendChild(divBackground);
+}
+
 
 
 function ValidateEmail(input)
