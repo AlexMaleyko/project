@@ -19,6 +19,7 @@
     <script src="resources/js/contactForm.js"></script>
     <script src="resources/js/modal.js"></script>
     <script src="resources/js/validation.js"></script>
+    <script src="resources/js/profileIMGmodal.js"></script>
     <meta charset="UTF-8">
 </head>
 <body>

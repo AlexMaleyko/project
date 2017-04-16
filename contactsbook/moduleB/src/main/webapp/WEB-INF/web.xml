@@ -34,6 +34,82 @@
         <url-pattern>/contact-book/*</url-pattern>
     </servlet-mapping>
 
+    <!--<servlet>
+        <servlet-name>ContactList</servlet-name>
+        <display-name>ContactList</display-name>
+        <servlet-class>
+            ContactList
+        </servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactList</servlet-name>
+        <url-pattern>/ContactList</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Delete</servlet-name>
+        <servlet-class>Delete</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Delete</servlet-name>
+        <url-pattern>/Delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ContactForm</servlet-name>
+        <servlet-class>ContactForm</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ContactForm</servlet-name>
+        <url-pattern>/ContactForm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateContactForm</servlet-name>
+        <servlet-class>CreateContactForm</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CreateContactForm</servlet-name>
+        <url-pattern>/CreateContactForm</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Search</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SaveContact</servlet-name>
+        <servlet-class>SaveContact</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SaveContact</servlet-name>
+        <url-pattern>/SaveContact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditContact</servlet-name>
+        <servlet-class>EditContact</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EditContact</servlet-name>
+        <url-pattern>/EditContact</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SendEmail</servlet-name>
+        <servlet-class>SendEmail</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SendEmail</servlet-name>
+        <url-pattern>/SendEmail</url-pattern>
+    </servlet-mapping>-->
+
     <resource-ref>
         <description>DB Connection</description>
         <res-ref-name>jdbc/contactBook</res-ref-name>

@@ -69,7 +69,7 @@ public class GetContactList implements Command {
         List<ContactDTO> contacts =controller.getAllContactDTO(conn, skipTotal, clientLimit);
         request.setAttribute("paginationFormAction", "ContactList");
         request.setAttribute("contacts",contacts);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("ContactList");
         dispatcher.forward(request, response);
     }
 }

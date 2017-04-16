@@ -1,8 +1,6 @@
 package command;
 
 import DAO.PairResultSize;
-import com.sun.org.apache.xpath.internal.SourceTree;
-import entity.Contact;
 import model.ContactDTO;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.LocalDate;
@@ -14,9 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.*;
 
